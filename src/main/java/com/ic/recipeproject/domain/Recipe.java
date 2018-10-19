@@ -1,6 +1,7 @@
 package com.ic.recipeproject.domain;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Recipe {
@@ -19,10 +20,13 @@ public class Recipe {
     //todo add
     //private Difficulty difficulty
 
-    @Lob//important, find out what it means
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
+    private Set<Ingredient> ingredients;
+
+    @Lob//important
     private Byte[] image;
 
-    @OneToOne(cascade = CascadeType.ALL)//find out what this means!
+    @OneToOne(cascade = CascadeType.ALL)//cascade defines relations when changing connected entities
     private Notes notes;
 
 
