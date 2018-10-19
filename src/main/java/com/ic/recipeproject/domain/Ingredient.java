@@ -19,6 +19,16 @@ public class Ingredient {
     @ManyToOne//if we delete an ingredient, we don't want to delete recipe
     private Recipe recipe;
 
+    public Ingredient() {
+    }
+
+    public Ingredient(String description, BigDecimal amount, UnitOfMeasure uom, Recipe recipe) {
+        this.description = description;
+        this.amount = amount;
+        this.uom = uom;
+        this.recipe = recipe;
+    }
+
     public Long getId() {
         return id;
     }
@@ -26,7 +36,6 @@ public class Ingredient {
     public void setId(Long id) {
         this.id = id;
     }
-
     public String getDescription() {
         return description;
     }
@@ -58,4 +67,6 @@ public class Ingredient {
     public void setRecipe(Recipe recipe) {
         this.recipe = recipe;
     }
+
+
 }
