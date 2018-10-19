@@ -2,6 +2,7 @@ package com.ic.recipeproject.domain;
 
 import javax.persistence.*;
 
+@Entity
 public class Notes {
 
     @Id

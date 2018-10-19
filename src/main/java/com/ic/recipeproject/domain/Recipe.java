@@ -18,7 +18,7 @@ public class Recipe {
     private String url;
     private String directions;
 
-   @Enumerated(value = EnumType.STRING)//if we use ORDINAL, it will be used with numbers instead of values
+    @Enumerated(value = EnumType.STRING)//if we use ORDINAL, it will be used with numbers instead of values
     private Difficulty difficulty;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
@@ -30,6 +30,11 @@ public class Recipe {
     @OneToOne(cascade = CascadeType.ALL)//cascade defines relations when changing connected entities
     private Notes notes;
 
+    @ManyToMany
+    @JoinTable(name = "recipe category",
+        joinColumns = @JoinColumn(name = "recipe_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
+    private Set<Category> categories;
 
     public Long getId() {
         return id;
@@ -125,5 +130,14 @@ public class Recipe {
 
     public void setIngredients(Set<Ingredient> ingredients) {
         this.ingredients = ingredients;
+    }
+
+
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
     }
 }
