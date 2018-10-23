@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Data//LOMBOK annotation
+@EqualsAndHashCode(exclude = {"recipes"})
 @Entity
 public class Category {
 

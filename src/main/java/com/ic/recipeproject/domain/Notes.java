@@ -1,10 +1,12 @@
 package com.ic.recipeproject.domain;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 
 @Data//LOMBOK
+@EqualsAndHashCode(exclude = {"recipe"})
 @Entity
 public class Notes {
 
@@ -17,4 +19,5 @@ public class Notes {
 
     @Lob
     private String recipeNotes;
+
 }
