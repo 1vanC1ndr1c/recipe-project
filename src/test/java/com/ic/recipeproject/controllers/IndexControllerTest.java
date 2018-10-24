@@ -39,7 +39,7 @@ public class IndexControllerTest {
     }
 
     @Test
-    public void testMockMVC() throws Exception{
+    public void testMockMVC() throws Exception {
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
 
         mockMvc.perform(get("/"))
@@ -69,8 +69,8 @@ public class IndexControllerTest {
         //then
         assertEquals("index", viewName);
         Mockito.verify(recipeService, times(1)).getRecipes();
-        Mockito.verify(model, times(1)).addAttribute(eq("recipes"),argumentCaptor.capture());
+        Mockito.verify(model, times(1)).addAttribute(eq("recipes"), argumentCaptor.capture());
         Set<Recipe> setInController = argumentCaptor.getValue();
-        assertEquals(2,setInController.size());
+        assertEquals(2, setInController.size());
     }
 }
