@@ -6,8 +6,6 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@Getter
-@Setter
 public class UnitOfMeasure {
 
     @Id
