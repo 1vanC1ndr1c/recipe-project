@@ -7,6 +7,10 @@ import com.ic.recipeproject.commands.IngredientCommand;
  * 26-Oct-18
  * 01:00
  **/
+
 public interface IngredientService {
+
     IngredientCommand findByRecipeIdAndIngredientId(Long recipeId, Long ingredientId);
+
+    IngredientCommand saveIngredientCommand(IngredientCommand command);
 }

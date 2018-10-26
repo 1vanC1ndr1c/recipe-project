@@ -13,14 +13,13 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-@Slf4j//this will give us a log,(LOMBOK)
+@Slf4j
 @Service
 public class RecipeServiceImpl implements RecipeService {
 
     private final RecipeRepository recipeRepository;
     private final RecipeCommandToRecipe recipeCommandToRecipe;
     private final RecipeToRecipeCommand recipeToRecipeCommand;
-
 
     public RecipeServiceImpl(RecipeRepository recipeRepository, RecipeCommandToRecipe recipeCommandToRecipe, RecipeToRecipeCommand recipeToRecipeCommand) {
         this.recipeRepository = recipeRepository;
@@ -31,10 +30,9 @@ public class RecipeServiceImpl implements RecipeService {
     @Override
     public Set<Recipe> getRecipes() {
         log.debug("I'm in the service");
+
         Set<Recipe> recipeSet = new HashSet<>();
-
         recipeRepository.findAll().iterator().forEachRemaining(recipeSet::add);
-
         return recipeSet;
     }
 
@@ -56,19 +54,18 @@ public class RecipeServiceImpl implements RecipeService {
         return recipeToRecipeCommand.convert(findById(l));
     }
 
-
     @Override
     @Transactional//something about being safe with lazy stuff
-    public RecipeCommand saveRecipeCommand(RecipeCommand recipeCommand) {
-        Recipe detachedRecipe = recipeCommandToRecipe.convert(recipeCommand);
+    public RecipeCommand saveRecipeCommand(RecipeCommand command) {
+        Recipe detachedRecipe = recipeCommandToRecipe.convert(command);
 
         Recipe savedRecipe = recipeRepository.save(detachedRecipe);
-        log.debug("Saved Recipe Id: " + savedRecipe.getId());
+        log.debug("Saved RecipeId:" + savedRecipe.getId());
         return recipeToRecipeCommand.convert(savedRecipe);
     }
 
     @Override
-    public  void  deleteById(Long idToDelete){
+    public void deleteById(Long idToDelete) {
         recipeRepository.deleteById(idToDelete);
     }
 }

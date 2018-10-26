@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 public class UnitOfMeasureCommandToUnitOfMeasure implements Converter<UnitOfMeasureCommand, UnitOfMeasure> {
 
     @Synchronized
-    @Nullable//able to return null
+    @Nullable
     @Override
     public UnitOfMeasure convert(UnitOfMeasureCommand source) {
         if (source == null) {

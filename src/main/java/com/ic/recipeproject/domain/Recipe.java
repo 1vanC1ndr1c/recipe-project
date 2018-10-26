@@ -24,18 +24,17 @@ public class Recipe {
     @Lob
     private String directions;
 
-    @Enumerated(value = EnumType.STRING)//if we use ORDINAL, it will be used with numbers instead of values
-    private Difficulty difficulty;
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
     private Set<Ingredient> ingredients = new HashSet<>();
 
     @Lob//important
     private Byte[] image;
 
+    @Enumerated(value = EnumType.STRING)//if we use ORDINAL, it will be used with numbers instead of values
+    private Difficulty difficulty;
+
     @OneToOne(cascade = CascadeType.ALL)//cascade defines relations when changing connected entities
     private Notes notes;
-
 
     @ManyToMany
     @JoinTable(name = "recipe_category",
@@ -43,18 +42,17 @@ public class Recipe {
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories = new HashSet<>();
 
-
     //can't use LOMBOK on these 2 methods because they are not the default ones, so they need to stay
     public void setNotes(Notes notes) {
-        this.notes = notes;
-        notes.setRecipe(this);
+        if (notes != null) {
+            this.notes = notes;
+            notes.setRecipe(this);
+        }
     }
-    //can't use LOMBOK on these 2 methods because they are not the default ones, so they need to stay
+
     public Recipe addIngredient(Ingredient ingredient) {
         ingredient.setRecipe(this);
         this.ingredients.add(ingredient);
         return this;
     }
-
-
 }
