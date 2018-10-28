@@ -20,12 +20,13 @@ import javax.validation.Valid;
  * 23:27
  **/
 
+
 @Slf4j
 @Controller
 public class RecipeController {
 
-    private final RecipeService recipeService;
     private static final String RECIPE_RECIPEFORM_URL = "recipe/recipeform";
+    private final RecipeService recipeService;
 
     public RecipeController(RecipeService recipeService) {
         this.recipeService = recipeService;
@@ -45,20 +46,18 @@ public class RecipeController {
     public String newRecipe(Model model) {
         model.addAttribute("recipe", new RecipeCommand());
 
-        return RECIPE_RECIPEFORM_URL;
+        return "recipe/recipeform";
     }
 
     @GetMapping("recipe/{id}/update")
     public String updateRecipe(@PathVariable String id, Model model) {
         model.addAttribute("recipe", recipeService.findCommandById(Long.valueOf(id)));
-
         return RECIPE_RECIPEFORM_URL;
     }
 
-
     //@RequestMapping(name = "recipe", method = RequestMethod.POST)  // OLD WAY
     @PostMapping("recipe")
-    public String saveOrUpdate(@Valid @ModelAttribute RecipeCommand command, BindingResult bindingResult) {
+    public String saveOrUpdate(@Valid @ModelAttribute("recipe") RecipeCommand command, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
 
@@ -73,7 +72,6 @@ public class RecipeController {
 
         return "redirect:/recipe/" + savedCommand.getId() + "/show";
     }
-
 
     @GetMapping("recipe/{id}/delete")
     public String deleteById(@PathVariable String id) {
@@ -90,6 +88,7 @@ public class RecipeController {
 
         log.error("Handling not found exception");
         log.error(exception.getMessage());
+
         ModelAndView modelAndView = new ModelAndView();
 
         modelAndView.setViewName("404error");
@@ -97,6 +96,5 @@ public class RecipeController {
 
         return modelAndView;
     }
+
 }
-
-
