@@ -2,11 +2,13 @@ package com.ic.recipeproject.controllers;
 
 import com.ic.recipeproject.commands.RecipeCommand;
 
+import com.ic.recipeproject.exceptions.NotFoundException;
 import com.ic.recipeproject.services.RecipeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Created by Ivan Cindric for recipe-project
@@ -56,7 +58,7 @@ public class RecipeController {
 
         return "redirect:/recipe/" + savedCommand.getId() + "/show";
     }
-    
+
     @GetMapping("recipe/{id}/delete")
     public String deleteById(@PathVariable String id) {
 
@@ -64,6 +66,18 @@ public class RecipeController {
 
         recipeService.deleteById(Long.valueOf(id));
         return "redirect:/";
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    public ModelAndView handleNotFound() {
+
+        log.error("Handling not found exception");
+
+        ModelAndView modelAndView = new ModelAndView();
+
+        modelAndView.setViewName("404error");
+
+        return modelAndView;
     }
 }
 
