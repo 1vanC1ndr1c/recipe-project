@@ -1,0 +1,22 @@
+spring:
+  datasource:                               #this below is also the fix-------------------------------------------------------------------------------------------------
+    url: jdbc:mysql://localhost:3306/sf_dev?verifyServerCertificate=FALSE&useSSL=TRUE&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: sf_dev_user
+    password: ic
+    initialization-mode: always #this is the fix!
+    platform: mysql
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database: mysql
+    show-sql: true
+ #   properties:
+ #     javax:
+  #      persistence:
+    #      schema-generation:
+   #         create-source: metadata
+    #        scripts:
+     #         action: create
+     #         create-target: guru_database_create.sql
+    ##commented so that the script doesn't run every time
