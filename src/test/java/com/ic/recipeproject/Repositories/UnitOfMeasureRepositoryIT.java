@@ -10,14 +10,14 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Optional;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
-
+/**
+ * Created by jt on 6/17/17.
+ */
 @RunWith(SpringRunner.class)
 @DataJpaTest
 public class UnitOfMeasureRepositoryIT {
-
-    //running with context
 
     @Autowired
     UnitOfMeasureRepository unitOfMeasureRepository;
@@ -27,18 +27,19 @@ public class UnitOfMeasureRepositoryIT {
     }
 
     @Test
-    public void findByDescription() {
+    public void findByDescription() throws Exception {
 
-        Optional<UnitOfMeasure> unitOfMeasureOptional = unitOfMeasureRepository.findByDescription("Teaspoon");
+        Optional<UnitOfMeasure> uomOptional = unitOfMeasureRepository.findByDescription("Teaspoon");
 
-        assertEquals("Teaspoon", unitOfMeasureOptional.get().getDescription());
+        assertEquals("Teaspoon", uomOptional.get().getDescription());
     }
 
     @Test
-    public void findByDescriptionCup() {
+    public void findByDescriptionCup() throws Exception {
 
-        Optional<UnitOfMeasure> unitOfMeasureOptional = unitOfMeasureRepository.findByDescription("Cup");
+        Optional<UnitOfMeasure> uomOptional = unitOfMeasureRepository.findByDescription("Cup");
 
-        assertEquals("Cup", unitOfMeasureOptional.get().getDescription());
+        assertEquals("Cup", uomOptional.get().getDescription());
     }
+
 }
